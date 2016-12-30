@@ -4622,27 +4622,21 @@ $(document).ready(function() {
                             $(document).ready(function() {
                                 $('#example-limit').multiselect({
                                     onChange: function(option, checked) {
-                                        // Get selected options.
-                                        var selectedOptions = $('#example-limit option:selected');
 
-                                        if (selectedOptions.length >= 4) {
+                                        if ( $('#example-limit option:selected').length >= 4) {
                                             // Disable all other checkboxes.
-                                            var nonSelectedOptions = $('#example-limit option').filter(function() {
-                                                return !$(this).is(':selected');
-                                            });
-
-                                            nonSelectedOptions.each(function() {
-                                                var input = $('input[value="' + $(this).val() + '"]');
-                                                input.prop('disabled', true);
-                                                input.parent('li').addClass('disabled');
+                                            $('#example-limit option:not(:selected)').each(function() {
+                                                $('input[value="' + $(this).val() + '"]')
+							.prop('disabled', true)
+							.closest('li').addClass('disabled');
                                             });
                                         }
                                         else {
                                             // Enable all checkboxes.
                                             $('#example-limit option').each(function() {
-                                                var input = $('input[value="' + $(this).val() + '"]');
-                                                input.prop('disabled', false);
-                                                input.parent('li').addClass('disabled');
+                                                $('input[value="' + $(this).val() + '"]')
+							.prop('disabled', false)
+							.closest('li').removeClass('disabled');
                                             });
                                         }
                                     }
